@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.gamewindow {
+    background: rgb(235, 235, 235);
+    width: 100%;
+    height: 100vh;
+}
+
+.overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.151);
+    width: 100%;
+    height: 75px;
+    z-index: 100;
+    display: flex;
+}
+
+.deathlay {
+    width: 50px;
+    height: 75px;
+    background: black;
+    position: absolute;
+    top: 0;
+}
+
+#deathright {
+    right: 0;
+}
+
+#deathleft {
+    left: 0;
+}
+
+.safezone {
+    position: absolute;
+    left: 100px;
+    width: 250px;
+    height: 75px;
+}
+
+.movezone {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 75px;
+    background: rgb(221, 221, 221);
+}
+
+.player {
+    height: 75px;
+    width: 200px;
+}
+
+#p1 {
+    background: rgba(255, 0, 0, 0.5);
+    position: absolute;
+    right: 0;
+}
+
+#p2 {
+    background: rgba(0, 132, 255, 0.5);
+    position: absolute;
+    left: 0;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Såpahåla</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body onkeydown="uniKeyCode(event)" onkeyup="logKeyUp(event)">
+    <div class="gamewindow">
+        <div class="overlay">
+            <div class="deathlay" id="deathleft"></div>
+            <div class="safezone"></div>
+            <div class="deathlay" id="deathright"></div>
+        </div>
+        <div class="movezone">
+            <div class="player" id="p1"></div>
+            <div class="player" id="p2"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
