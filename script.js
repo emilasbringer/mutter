@@ -4,21 +4,39 @@ const safezone = document.querySelector(".safezone");
 const deathzone = document.querySelector(".overlay");
 const leftdeath = document.querySelector("#deathleft");
 const rightdeath = document.querySelector("#deathright");
+const p1text = document.querySelector("#textplayer1");
+const p2text = document.querySelector("#textplayer2");
 var isRunning = false;
 var playermovement = [false, false, false, false]
 var p1XPos = 300;
 var p2XPos = 800;
 var deathYPos = 0;
-var deathspeed = 1;
-var totalPageWidth = window.innerWidth;
+var deathspeed = 2;
 var safezoneWidth = 250;
 var safezoneLeftBound = 100;
 var safezoneRightBound = safezoneLeftBound + safezoneWidth;
 var deathLayLeftWidth = safezoneLeftBound;
-var deathLayRightWidth = totalPageWidth - safezoneRightBound;
+var deathLayRightWidth = window.innerWidth - safezoneRightBound;
+
+resetDeathZone();
+player1.style.left = p1XPos+"px";
+player2.style.left = p2XPos+"px";
+deathLayLeftWidth = safezoneLeftBound;
+deathLayRightWidth = window.innerWidth - safezoneRightBound;
+leftdeath.style.width = deathLayLeftWidth + "px";
+rightdeath.style.width = deathLayRightWidth + "px"; 
+deathYPos += deathspeed;
+deathzone.style.top = deathYPos+"px";
 
 function randNum(max) {
-  return Math.floor(Math.random() * (max + 1));
+  var previousBound;
+  var randNum;
+  previousBound = safezoneLeftBound;
+  randNum = Math.floor(Math.random() * (max + 1));
+  while (randNum < previousBound + 400 && randNum > previousBound - 400) {
+    randNum = Math.floor(Math.random() * (max + 1));
+  }
+  return randNum;
 }
 
 function uniKeyCode(event) {
@@ -27,7 +45,9 @@ function uniKeyCode(event) {
     if(key == 68) {playermovement[1] = true; console.log(playermovement);}
     if(key == 37) {playermovement[2] = true; console.log(playermovement);}
     if(key == 39) {playermovement[3] = true; console.log(playermovement);}
-    if(key == 13) {isRunning = true;}
+    if(key == 13) {if(!isRunning){isRunning = true;}else isRunning=false;}
+    if(key == 187) {deathspeed += 0.5;}
+    if(key == 189) {deathspeed -= 0.5;}
 }
 
 function logKeyUp(event) {
@@ -36,6 +56,13 @@ function logKeyUp(event) {
     if(keyup == 68) {playermovement[1] = false;};
     if(keyup == 37) {playermovement[2] = false;};
     if(keyup == 39) {playermovement[3] = false;};
+  }
+
+  function resetDeathZone() {
+    deathYPos = 0;
+    safezoneLeftBound = randNum(1335 - safezoneWidth);
+    safezoneRightBound = safezoneLeftBound + safezoneWidth;
+    safezone.style.left = safezoneLeftBound + "px";
   }
 
   setInterval(() => {
@@ -48,14 +75,39 @@ function logKeyUp(event) {
         player2.style.left = p2XPos+"px";
 
         deathLayLeftWidth = safezoneLeftBound;
-        deathLayRightWidth = totalPageWidth - safezoneRightBound;
+        deathLayRightWidth = window.innerWidth - safezoneRightBound;
 
         leftdeath.style.width = deathLayLeftWidth + "px";
         rightdeath.style.width = deathLayRightWidth + "px";
-
         
         deathYPos += deathspeed;
         deathzone.style.top = deathYPos+"px";
+
+        if (deathYPos+140 > 933) {
+          if(p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth) && p2XPos > deathLayLeftWidth && p2XPos < (deathLayLeftWidth + safezoneWidth)) {
+            resetDeathZone();
+          }
+          else if (!(p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth) || p2XPos > deathLayLeftWidth && p2XPos < (deathLayLeftWidth + safezoneWidth))) {
+            p1text.innerHTML = "Deadero Muerto";
+            p2text.innerHTML = "Deadero Muerto";
+            isRunning = false;
+          }
+          else if (p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth)) {
+            console.log("P2 DIES");
+            isRunning = false;
+            p2text.innerHTML = "Deadero Muerto";
+          }
+          else {
+            console.log("P1 DIEs");
+            isRunning = false;
+            p1text.innerHTML = "Deadero Muerto";
+          }
+          
+
+          
+        }
       }
   }, 5);
     
+
+
