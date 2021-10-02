@@ -8,6 +8,7 @@ const p1text = document.querySelector("#textplayer1");
 const p2text = document.querySelector("#textplayer2");
 var isRunning = false;
 var playermovement = [false, false, false, false]
+var playerWidth = 200;
 var p1XPos = 300;
 var p2XPos = 800;
 var deathYPos = 0;
@@ -17,6 +18,9 @@ var safezoneLeftBound = 100;
 var safezoneRightBound = safezoneLeftBound + safezoneWidth;
 var deathLayLeftWidth = safezoneLeftBound;
 var deathLayRightWidth = window.innerWidth - safezoneRightBound;
+var p1Velocity;
+var p2Velocity;
+var timePressed;
 
 resetDeathZone();
 player1.style.left = p1XPos+"px";
@@ -79,12 +83,14 @@ function logKeyUp(event) {
 
         leftdeath.style.width = deathLayLeftWidth + "px";
         rightdeath.style.width = deathLayRightWidth + "px";
+
+        deathspeed += 0.001;
         
         deathYPos += deathspeed;
         deathzone.style.top = deathYPos+"px";
-
-        if (deathYPos+140 > 933) {
-          if(p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth) && p2XPos > deathLayLeftWidth && p2XPos < (deathLayLeftWidth + safezoneWidth)) {
+        deathspeed += 0.001;
+        if (deathYPos+360 > 933) {
+          if(p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth - playerWidth) && p2XPos > deathLayLeftWidth && p2XPos < (deathLayLeftWidth + safezoneWidth)) {
             resetDeathZone();
           }
           else if (!(p1XPos > deathLayLeftWidth && p1XPos < (deathLayLeftWidth + safezoneWidth) || p2XPos > deathLayLeftWidth && p2XPos < (deathLayLeftWidth + safezoneWidth))) {
@@ -103,7 +109,7 @@ function logKeyUp(event) {
             p1text.innerHTML = "Deadero Muerto";
           }
           
-
+          
           
         }
       }
