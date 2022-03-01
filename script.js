@@ -49,7 +49,7 @@ function uniKeyCode(event) {
     if(key == 68) {playermovement[1] = true; console.log(playermovement);}
     if(key == 37) {playermovement[2] = true; console.log(playermovement);}
     if(key == 39) {playermovement[3] = true; console.log(playermovement);}
-    if(key == 13) {if(!isRunning){isRunning = true;}else isRunning=false;}
+    if(key == 13) {if(!isRunning){isRunning = true;} else isRunning=false;}
     if(key == 187) {deathspeed += 0.5;}
     if(key == 189) {deathspeed -= 0.5;}
 }
